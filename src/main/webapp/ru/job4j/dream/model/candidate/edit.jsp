@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Store" %>
-<%@ page import="ru.job4j.dream.model.post.Post" %>
+<%@ page import="ru.job4j.dream.model.candidate.Candidate" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,13 +25,15 @@
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
-                Новая вакансия.
+                Новый  кандидат
             </div>
             <div class="card-body">
                 <form>
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control">
+                        <label>
+                            <input type="text" class="form-control">
+                        </label>
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
