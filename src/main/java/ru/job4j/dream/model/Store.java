@@ -1,6 +1,7 @@
 package ru.job4j.dream.model;
 
 import ru.job4j.dream.model.candidate.Candidate;
+import ru.job4j.dream.model.post.Post;
 
 import java.util.Collection;
 import java.util.Map;
