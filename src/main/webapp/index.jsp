@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.model.Store" %>
 <%@ page import="ru.job4j.dream.model.post.Post" %>
+<%@ page import="ru.job4j.dream.model.candidate.Candidate" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -31,7 +32,10 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidates.jsp">Кандидаты</a>
             </li>
             <li>
-                <a class="nav-link" href="<%=request.getContextPath()%>/edit.jsp">Добавить вакансию</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/ru/job4j/dream/model/post/edit.jsp">Добавить вакансию</a>
+            </li>
+            <li>
+                <a class="nav-link" href="<%=request.getContextPath()%>/ru/job4j/dream/model/candidate/edit.jsp">Добавить кандидата</a>
             </li>
         </ul>
     </div>
