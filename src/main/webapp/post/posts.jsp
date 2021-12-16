@@ -39,7 +39,7 @@
           <% for (Post post : Store.instOf().findPosts()) { %>
           <tr>
             <td>
-              <a href="<%=request.getContextPath()%>/post/save?id=<%=post.getId()%>">
+              <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
                 <i class="fa fa-edit mr-3"></i>
               </a>
               <%=post.getName()%>
