@@ -5,6 +5,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
+import ru.job4j.dream.model.Candidate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -23,12 +24,13 @@ public class UploadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         List<String> images = new ArrayList<>();
         for (File name : new File("c:\\images\\").listFiles()) {
             images.add(FilenameUtils.removeExtension(name.getName()));
         }
         req.setAttribute("images", images);
-        RequestDispatcher dispather = req.getRequestDispatcher("/candidate/edit.jsp");
+        RequestDispatcher dispather = req.getRequestDispatcher("/candidate/upload.jsp");
         dispather.forward(req, resp);
     }
 

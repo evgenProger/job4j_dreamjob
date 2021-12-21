@@ -51,7 +51,6 @@
                                 <img src="<c:url value='/download?name=${candidate.id}'/>" width="100px" height="100px"/>
                                 <br/><a href="<c:url value='/download?name=${candidate.id}'/>">Download</a>
                             </td>
-
                         </tr>
                     </c:forEach>
                     </tbody>
