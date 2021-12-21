@@ -24,12 +24,7 @@ public class UploadServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        List<String> images = new ArrayList<>();
-        for (File name : new File("c:\\images\\").listFiles()) {
-            images.add(FilenameUtils.removeExtension(name.getName()));
-        }
-        req.setAttribute("images", images);
+        req.setAttribute("image", req.getParameter("id"));
         RequestDispatcher dispather = req.getRequestDispatcher("/candidate/upload.jsp");
         dispather.forward(req, resp);
     }
