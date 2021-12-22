@@ -26,7 +26,6 @@
                     <img src="<c:url value='/download?name=${image}' />" width="100px" height="100px"/>
                 </td>
             </tr>
-
         </tbody>
     </table>
     <h2>Upload image</h2>

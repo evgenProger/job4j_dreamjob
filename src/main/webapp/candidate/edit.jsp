@@ -51,7 +51,6 @@
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
                 <a class="nav-link" href="<%=request.getContextPath()%>/upload?id=<%=candidate.getId()%>">Добавить фото</a>
-                <a class="nav-link" href="<%=request.getContextPath()%>/delete?id=<%=candidate.getId()%>">Удалить фото</a>
 
             </div>
         </div>

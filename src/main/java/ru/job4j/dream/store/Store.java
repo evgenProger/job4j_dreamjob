@@ -58,4 +58,8 @@ public class Store {
     public Candidate findCandidateById(int id) {
         return candidates.get(id);
     }
+
+    public Candidate removeCandidate(int id) {
+        return candidates.remove(id);
+    }
 }
