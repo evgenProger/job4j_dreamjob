@@ -11,7 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 <div class="container">
     <table class="table">
         <thead>
@@ -31,13 +30,19 @@
         </tbody>
     </table>
     <h2>Upload image</h2>
-    <form action="<c:url value='/upload'/>" method="post" enctype="multipart/form-data">
+    <form action="<%=request.getContextPath()%>/upload?id=<%=request.getAttribute("image")%>"  method="post" enctype="multipart/form-data">
+        <div class="checkbox">
+            <input type="file" name="file">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <h2>Delete image</h2>
+    <form action="<%=request.getContextPath()%>/delete?id=<%=request.getAttribute("image")%>"  method="post" enctype="multipart/form-data">
         <div class="checkbox">
             <input type="file" name="file">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>
-
 </body>
 </html>

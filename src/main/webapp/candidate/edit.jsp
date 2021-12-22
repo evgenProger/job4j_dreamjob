@@ -50,10 +50,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
+                <a class="nav-link" href="<%=request.getContextPath()%>/upload?id=<%=candidate.getId()%>">Добавить фото</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/delete?id=<%=candidate.getId()%>">Удалить фото</a>
 
-                <form action="<%=request.getContextPath()%>/upload?id=<%=candidate.getId()%>" method="post" enctype="multipart/form-data">
-                    <button type="submit" class="btn btn-default">Добавить фото</button>
-                </form>
             </div>
         </div>
     </div>
