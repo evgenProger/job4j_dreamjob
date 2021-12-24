@@ -16,9 +16,6 @@ public class CandidateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        if (req.getParameter("id") != null) {
-            doDelete(req, resp);
-        }
         req.setAttribute("candidates", Store.instOf().findAllCandidates());
         req.getRequestDispatcher("/candidate/candidates.jsp").forward(req, resp);
     }
@@ -33,17 +30,4 @@ public class CandidateServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath() + "/candidates.do");
     }
 
-    @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("id");
-        Store.instOf().removeCandidate(Integer.parseInt(id));
-        req.setAttribute("candidates", Store.instOf().findAllCandidates());
-        File folder = new File("c:\\images\\");
-        for (File f : Objects.requireNonNull(folder.listFiles())) {
-            if (FilenameUtils.removeExtension(f.getName()).equals(id)) {
-                f.delete();
-            }
-        }
-        req.getRequestDispatcher("/candidate/candidate.jsp");
-    }
 }

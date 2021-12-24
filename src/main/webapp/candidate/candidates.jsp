@@ -49,7 +49,7 @@
                                 <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}"/>'>
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
-                                <a href='<c:url value="/candidates.do?id=${candidate.id}"/>'>
+                                <a href='<c:url value="/delete?id=${candidate.id}"/>'>
                                     <i class="fa fa-trash-o custom"></i>
                                 </a>
                                 <c:out value="${candidate.name}"/>

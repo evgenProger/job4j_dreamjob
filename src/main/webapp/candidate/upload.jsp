@@ -35,13 +35,6 @@
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
-    <h2>Delete image</h2>
-    <form action="<%=request.getContextPath()%>/delete?id=<%=request.getAttribute("image")%>"  method="post" enctype="multipart/form-data">
-        <div class="checkbox">
-            <input type="file" name="file">
-        </div>
-        <button type="submit" class="btn btn-default">Submit</button>
-    </form>
 </div>
 </body>
 </html>
