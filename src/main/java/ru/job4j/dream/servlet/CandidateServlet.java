@@ -1,6 +1,7 @@
 package ru.job4j.dream.servlet;
 
 import org.apache.commons.io.FilenameUtils;
+import ru.job4j.dream.model.Path;
 import ru.job4j.dream.store.Store;
 import ru.job4j.dream.model.Candidate;
 
