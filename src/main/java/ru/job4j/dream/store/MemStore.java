@@ -38,7 +38,7 @@ public class MemStore  {
         return candidates.values();
     }
 
-    public void save(Post post) {
+    public void savePost(Post post) {
         if (post.getId() == 0) {
             post.setId(POST_ID.incrementAndGet());
         }
