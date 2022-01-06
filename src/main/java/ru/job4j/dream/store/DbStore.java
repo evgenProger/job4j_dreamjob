@@ -1,6 +1,8 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
@@ -19,23 +21,25 @@ import java.util.Properties;
 public class DbStore implements Store {
     private static final DbStore INSTANCE = new DbStore();
     private final BasicDataSource pool = new BasicDataSource();
+    private static final Logger LOG = LoggerFactory.getLogger(DbStore.class.getName());
+
 
     private DbStore() {
         Properties cfg = new Properties();
         try (BufferedReader io = new BufferedReader(
                 new InputStreamReader(
                         DbStore.class.getClassLoader()
-                                .getResourceAsStream("path.properties")
+                                .getResourceAsStream("db.properties")
                 )
         )) {
             cfg.load(io);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.error("Error", e);
         }
         try {
             Class.forName(cfg.getProperty("jdbc.driver"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOG.error("Error", e);
         }
         pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
         pool.setUrl(cfg.getProperty("jdbc.url"));
@@ -66,7 +70,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOG.error("Error", throwables);
         }
         return posts;
     }
@@ -83,7 +87,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOG.error("Error", throwables);
         }
         return candidates;
     }
@@ -119,7 +123,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Error", e);
         }
         return post;
     }
@@ -137,7 +141,7 @@ public class DbStore implements Store {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error("Error", e);
         }
         return candidate;
     }
@@ -150,7 +154,7 @@ public class DbStore implements Store {
             ps.setInt(2, post.getId());
             result = ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOG.error("Error", throwables);
         }
         return result;
     }
@@ -163,7 +167,7 @@ public class DbStore implements Store {
             ps.setInt(2, candidate.getId());
             result = ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOG.error("Error", throwables);
         }
         return result;
     }
@@ -176,12 +180,11 @@ public class DbStore implements Store {
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post where id = ?")) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    post = new Post(rs.getInt("id"), rs.getString("name"));
-                }
+                rs.next();
+                post = new Post(rs.getInt("id"), rs.getString("name"));
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOG.error("Error", throwables);
         }
         return post;
     }
@@ -193,12 +196,13 @@ public class DbStore implements Store {
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate where id = ?")) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    candidate = new Candidate(rs.getInt("id"), rs.getString("name"));
-                }
+                rs.next();
+                int num = rs.getInt("id");
+                candidate = new Candidate(rs.getInt("id"), rs.getString("name"));
+
             }
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            LOG.error("Error", throwables);
         }
         return candidate;
     }

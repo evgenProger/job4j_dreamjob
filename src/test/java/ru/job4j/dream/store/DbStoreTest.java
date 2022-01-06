@@ -8,7 +8,6 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
 import java.io.InputStream;
-import java.net.CacheRequest;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,7 +15,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 public class DbStoreTest {
     static Connection connection;
@@ -66,7 +65,7 @@ public class DbStoreTest {
 
     @Test
     public void whenUpdatePostThenNewPost() {
-        Post newPpost = new Post(1, "java middle");
+        Post newPpost = new Post(1, "java updated");
         DbStore.instOf().savePost(newPpost);
         assertThat(DbStore.instOf().findById(1), is(newPpost));
     }
