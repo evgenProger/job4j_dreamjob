@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
@@ -79,7 +78,6 @@ public class DbStoreTest {
         Candidate candidate = new Candidate(0, "Senior java");
         DbStore.instOf().saveCandidate(candidate);
         assertThat(DbStore.instOf().findCandidateById(candidate.getId()), is(candidate));
-        System.out.println(((List<Candidate>) DbStore.instOf().findAllCandidates()).get(0).getId());
     }
 
 

@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Properties;
 
 public class DbStore implements Store {
-    private static final DbStore INSTANCE = new DbStore();
     private final BasicDataSource pool = new BasicDataSource();
     private static final Logger LOG = LoggerFactory.getLogger(DbStore.class.getName());
 
@@ -186,8 +185,9 @@ public class DbStore implements Store {
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM post where id = ?")) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                post = new Post(rs.getInt("id"), rs.getString("name"));
+                if (rs.next()) {
+                    post = new Post(rs.getInt("id"), rs.getString("name"));
+                }
             }
         } catch (SQLException throwables) {
             LOG.error("Error", throwables);
@@ -202,9 +202,10 @@ public class DbStore implements Store {
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate where id = ?")) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
-                rs.next();
-                int num = rs.getInt("id");
-                candidate = new Candidate(rs.getInt("id"), rs.getString("name"));
+                if (rs.next()) {
+                    int num = rs.getInt("id");
+                    candidate = new Candidate(rs.getInt("id"), rs.getString("name"));
+                }
 
             }
         } catch (SQLException throwables) {
