@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
@@ -22,10 +23,10 @@ public class DbStoreTest {
 
     @BeforeClass
     public static void initConnection() {
-        try (InputStream in = DbStoreTest.class.getClassLoader().getResourceAsStream("test.properties")) {
+        try (InputStream in = DbStoreTest.class.getClassLoader().getResourceAsStream("db.properties")) {
             Properties config = new Properties();
             config.load(in);
-            Class.forName(config.getProperty("driver-class-name"));
+            Class.forName(config.getProperty("driver"));
             connection = DriverManager.getConnection(
                     config.getProperty("url"),
                     config.getProperty("username"),
@@ -36,6 +37,7 @@ public class DbStoreTest {
             throw new IllegalStateException(e);
         }
     }
+
 
     @AfterClass
     public static void closeConnection() throws SQLException {
@@ -65,9 +67,11 @@ public class DbStoreTest {
 
     @Test
     public void whenUpdatePostThenNewPost() {
-        Post newPpost = new Post(1, "java updated");
+        Post post = new Post(0, "java develop");
+        int id = DbStore.instOf().savePost(post);
+        Post newPpost = new Post(id, "update");
         DbStore.instOf().savePost(newPpost);
-        assertThat(DbStore.instOf().findById(1), is(newPpost));
+        assertThat(DbStore.instOf().findById(id).getName(), is("update"));
     }
 
     @Test
@@ -75,12 +79,16 @@ public class DbStoreTest {
         Candidate candidate = new Candidate(0, "Senior java");
         DbStore.instOf().saveCandidate(candidate);
         assertThat(DbStore.instOf().findCandidateById(candidate.getId()), is(candidate));
+        System.out.println(((List<Candidate>) DbStore.instOf().findAllCandidates()).get(0).getId());
     }
+
 
     @Test
     public void whenUpdateCandidateThenNewCandidate() {
-        Candidate newCandidate = new Candidate(1, "Middle Java");
+        Candidate candidate = new Candidate(0, "Middle Java");
+        int id = DbStore.instOf().saveCandidate(candidate);
+        Candidate newCandidate = new Candidate(id, "updated");
         DbStore.instOf().saveCandidate(newCandidate);
-        assertThat(DbStore.instOf().findCandidateById(1), is(newCandidate));
+        assertThat(DbStore.instOf().findCandidateById(id).getName(), is("updated"));
     }
 }

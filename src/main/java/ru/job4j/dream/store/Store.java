@@ -10,9 +10,9 @@ public interface Store {
 
     Collection<Candidate> findAllCandidates();
 
-    void savePost(Post post);
+    int savePost(Post post);
 
-    void saveCandidate(Candidate candidate);
+    int saveCandidate(Candidate candidate);
 
     Post findById(int id);
 

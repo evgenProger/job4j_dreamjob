@@ -37,14 +37,14 @@ public class DbStore implements Store {
             LOG.error("Error", e);
         }
         try {
-            Class.forName(cfg.getProperty("jdbc.driver"));
+            Class.forName(cfg.getProperty("driver"));
         } catch (ClassNotFoundException e) {
             LOG.error("Error", e);
         }
-        pool.setDriverClassName(cfg.getProperty("jdbc.driver"));
-        pool.setUrl(cfg.getProperty("jdbc.url"));
-        pool.setUsername(cfg.getProperty("jdbc.username"));
-        pool.setPassword(cfg.getProperty("jdbc.password"));
+        pool.setDriverClassName(cfg.getProperty("driver"));
+        pool.setUrl(cfg.getProperty("url"));
+        pool.setUsername(cfg.getProperty("username"));
+        pool.setPassword(cfg.getProperty("password"));
         pool.setMinIdle(5);
         pool.setMaxIdle(10);
         pool.setMaxOpenPreparedStatements(100);
@@ -93,21 +93,27 @@ public class DbStore implements Store {
     }
 
     @Override
-    public void savePost(Post post) {
+    public int savePost(Post post) {
+        int id;
         if (post.getId() == 0) {
-            createPost(post);
+            id =  createPost(post).getId();
         } else {
             updatePost(post);
+            id = post.getId();
         }
+        return id;
     }
 
     @Override
-    public void saveCandidate(Candidate candidate) {
+    public int saveCandidate(Candidate candidate) {
+        int id;
         if (candidate.getId() == 0) {
-            createCandidate(candidate);
+           id = createCandidate(candidate).getId();
         } else {
             updateCandidate(candidate);
+            id = candidate.getId();
         }
+        return id;
     }
 
     private Post createPost(Post post) {
