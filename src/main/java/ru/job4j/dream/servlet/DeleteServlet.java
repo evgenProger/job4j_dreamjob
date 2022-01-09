@@ -2,7 +2,7 @@ package ru.job4j.dream.servlet;
 
 import org.apache.commons.io.FilenameUtils;
 import ru.job4j.dream.model.Path;
-import ru.job4j.dream.store.MemStore;
+import ru.job4j.dream.store.DbStore;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +24,8 @@ public class DeleteServlet extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
-        MemStore.instOf().removeCandidate(Integer.parseInt(id));
-        req.setAttribute("candidates", MemStore.instOf().findAllCandidates());
+        DbStore.instOf().removeCandidate(Integer.parseInt(id));
+        req.setAttribute("candidates", DbStore.instOf().findAllCandidates());
         File folder = new File(Path.pathToImages("path"));
         for (File f : Objects.requireNonNull(folder.listFiles())) {
             if (FilenameUtils.removeExtension(f.getName()).equals(id)) {

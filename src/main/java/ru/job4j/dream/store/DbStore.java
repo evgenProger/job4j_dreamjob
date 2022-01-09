@@ -213,4 +213,9 @@ public class DbStore implements Store {
         }
         return candidate;
     }
+
+    @Override
+    public Candidate removeCandidate(int id) {
+        return null;
+    }
 }
