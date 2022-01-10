@@ -22,13 +22,13 @@
 </head>
 <body>
 <li class="nav-item">
-  <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp"> <c:out value="${user.name}"/> | Выйти</a>
+  <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"> <c:out value="${user.name}"/> | Выйти</a>
 </li>
-<c:if test="${user != null}">
-  <li class="nav-item">
-    <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">Выйти</a>
-  </li>
-</c:if>
+<%-- <c:if test="${user != null}">--%>
+<%--  <li class="nav-item">--%>
+<%--    <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">Выйти</a>--%>
+<%--  </li>--%>
+<%--</c:if>--%>
 <div class="container pt-3">
   <div class="row">
     <div class="card" style="width: 100%">

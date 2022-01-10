@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.DbStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
@@ -24,6 +25,10 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<li class="nav-item">
+    <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"> <c:out value="${user.name}"/> | Выйти</a>
+</li>
+
 <%
     String id = request.getParameter("id");
     Post post = new Post(0, "");

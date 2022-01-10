@@ -38,12 +38,6 @@
                         <input type="text" class="form-control" name="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Войти</button>
-                    <c:if test="${not empty error}">
-                        <div style="color:red; font-weight: bold; margin: 30px 0;">
-                                ${error}
-                        </div>
-                    </c:if>
-                    html
                 </form>
             </div>
         </div>
