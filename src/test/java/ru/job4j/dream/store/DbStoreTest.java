@@ -37,7 +37,6 @@ public class DbStoreTest {
         }
     }
 
-
     @AfterClass
     public static void closeConnection() throws SQLException {
         connection.close();
