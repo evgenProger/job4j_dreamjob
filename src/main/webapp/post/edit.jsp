@@ -32,6 +32,7 @@
 <form>
     <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/"'>
 </form>
+
 <%
     String id = request.getParameter("id");
     Post post = new Post(0, "");
