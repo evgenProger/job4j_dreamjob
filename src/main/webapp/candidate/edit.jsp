@@ -29,6 +29,7 @@
     <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">  <c:out value="${user.name}"/> | Выйти</a>
 </li>
 </c:if>
+
 <form>
     <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/"'>
 </form>
