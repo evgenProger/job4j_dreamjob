@@ -25,6 +25,13 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<c:if test="${user != null}">  <li class="nav-item">
+    <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">  <c:out value="${user.name}"/> | Выйти</a>
+</li>
+</c:if>
+<form>
+    <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/"'>
+</form>
 <%
     String id = request.getParameter("id");
     Candidate candidate = new Candidate(0, "");

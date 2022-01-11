@@ -18,6 +18,6 @@ public interface Store {
 
     Candidate findCandidateById(int id);
 
-    Candidate removeCandidate(int id);
+    boolean removeCandidate(int id);
 
 }

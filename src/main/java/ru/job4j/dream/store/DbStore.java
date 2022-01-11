@@ -215,7 +215,15 @@ public class DbStore implements Store {
     }
 
     @Override
-    public Candidate removeCandidate(int id) {
-        return null;
+    public boolean removeCandidate(int id) {
+        boolean result = false;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("delete from candidate where id = ?")) {
+            ps.setInt(1, id);
+            result = ps.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
     }
 }

@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.DbStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
@@ -25,9 +25,13 @@
     <title>Работа мечты</title>
 </head>
 <body>
-<li class="nav-item">
-    <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"> <c:out value="${user.name}"/> | Выйти</a>
+<c:if test="${user != null}">  <li class="nav-item">
+    <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">  <c:out value="${user.name}"/> | Выйти</a>
 </li>
+</c:if>
+<form>
+    <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/"'>
+</form>
 
 <%
     String id = request.getParameter("id");
