@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -225,5 +226,77 @@ public class DbStore implements Store {
             throwables.printStackTrace();
         }
         return result;
+    }
+
+    private User createUser(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO users(name, email, password) VALUES (?, ?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error("Error", e);
+        }
+        return user;
+    }
+
+    private boolean updateUser(User user) {
+        boolean result = false;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("UPDATE users set name = ?, "
+                     + " email = ?, password = ? where id = ?")) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, user.getId());
+            result = ps.executeUpdate() > 0;
+        } catch (SQLException throwables) {
+            LOG.error("Error", throwables);
+        }
+        return result;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        User user = new User();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users where email = ?")) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int id = rs.getInt("id");
+                    String mail = rs.getString("email");
+                    String password = rs.getString("password");
+                    String name = rs.getString("name");
+                    user.setId(id);
+                    user.setEmail(mail);
+                    user.setPassword(password);
+                    user.setName(name);
+                }
+            }
+        } catch (SQLException throwables) {
+            LOG.error("Error", throwables);
+        }
+        return user;
+    }
+
+    @Override
+    public int saveUser(User user) {
+        int id;
+        if (user.getId() == 0) {
+            id =  createUser(user).getId();
+        } else {
+            updateUser(user);
+            id = user.getId();
+        }
+        return id;
     }
 }

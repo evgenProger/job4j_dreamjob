@@ -41,6 +41,7 @@ public class User {
         this.password = password;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -50,11 +51,11 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return id == user.id;
+        return id == user.id && name.equals(user.name) && email.equals(user.email) && password.equals(user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, email, password);
     }
 }

@@ -6,6 +6,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class DbStoreTest {
@@ -56,6 +58,13 @@ public class DbStoreTest {
         }
     }
 
+    @After
+    public void wipeTableUsers() throws SQLException {
+        try (PreparedStatement statement = connection.prepareStatement("delete from users")) {
+            statement.execute();
+        }
+    }
+
     @Test
     public void whenSavePostAndFindByGeneratedIdThenMustBeTheSame() {
         Post post = new Post(0, "java junior");
@@ -87,5 +96,32 @@ public class DbStoreTest {
         Candidate newCandidate = new Candidate(id, "updated");
         DbStore.instOf().saveCandidate(newCandidate);
         assertThat(DbStore.instOf().findCandidateById(id).getName(), is("updated"));
+    }
+
+    @Test
+    public void whenSaveUserAndFindByGeneratedIdThenMustBeTheSame() {
+        User user = new User();
+        user.setName("Evgeny");
+        user.setEmail("myEmail");
+        user.setPassword("123654");
+        user.setId(DbStore.instOf().saveUser(user));
+        User newUser = DbStore.instOf().findByEmail(user.getEmail());
+        assertThat(newUser, is(user));
+    }
+
+    @Test
+    public void whenUpdateUserThenNewUser() {
+        User user = new User();
+        user.setName("Evgeny");
+        user.setEmail("Email");
+        user.setPassword("123654");
+        int id = DbStore.instOf().saveUser(user);
+        User newUser = new User();
+        newUser.setId(id);
+        newUser.setEmail("emailUpdated");
+        newUser.setName("nameUpdated");
+        newUser.setPassword("passUpdated");
+        DbStore.instOf().saveUser(newUser);
+        assertThat(DbStore.instOf().findByEmail(newUser.getEmail()).getEmail(), is("emailUpdated"));
     }
 }
