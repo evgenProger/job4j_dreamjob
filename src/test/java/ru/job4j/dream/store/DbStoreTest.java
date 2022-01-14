@@ -124,4 +124,5 @@ public class DbStoreTest {
         DbStore.instOf().saveUser(newUser);
         assertThat(DbStore.instOf().findByEmail(newUser.getEmail()).getEmail(), is("emailUpdated"));
     }
+
 }
