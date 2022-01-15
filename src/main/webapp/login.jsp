@@ -39,6 +39,9 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Войти</button>
                 </form>
+                <form action="<%=request.getContextPath()%>/reg.do" method="get">
+                    <input type="submit" class="form-control" name="registration" value="Зарегистрироваться">
+                </form>
             </div>
         </div>
     </div>
