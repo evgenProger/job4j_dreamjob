@@ -7,11 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
 import java.io.IOException;
 
 public class RegServlet extends HttpServlet {
-
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -27,7 +25,11 @@ public class RegServlet extends HttpServlet {
         user.setName(name);
         user.setPassword(password);
         user.setEmail(email);
-        DbStore.instOf().saveUser(user);
+        if (!user.getEmail().equals(DbStore.instOf().findByEmail(email).getEmail())) {
+            DbStore.instOf().saveUser(user);
+        } else {
+            req.setAttribute("error", "Такой пользователь уже зарегестрирован");
+        }
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 }

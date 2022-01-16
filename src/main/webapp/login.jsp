@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 <html lang="en">
@@ -21,7 +22,6 @@
 </head>
 <body>
 <div class="container pt-3">
-
     <div class="row">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -39,6 +39,11 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Войти</button>
                 </form>
+                <c:if test="${not empty error}">
+                    <div style="color:red; font-weight: bold; margin: 30px 0;">
+                        <c:out value="${error}"/>
+                    </div>
+                </c:if>
                 <form action="<%=request.getContextPath()%>/reg.do" method="get">
                     <input type="submit" class="form-control" name="registration" value="Зарегистрироваться">
                 </form>

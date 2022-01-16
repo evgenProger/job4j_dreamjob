@@ -17,14 +17,16 @@
     Пользователь: <input type="text" name="user" size="10"><br>
     Пароль: <input type="password" name="password" size="10"><br>
     Email: <input type="text" name="email"><br>
+    <c:if test="${not empty error}">
+        <div style="color:red; font-weight: bold; margin: 30px 0;">
+            <c:out value="${error}"/>
+        </div>
+    </c:if>
     <p>
     <table>
         <tr>
             <th><small>
                 <input type="submit" name="save" value="Сохранить">
-            </small>
-            <th><small>
-            <input type="submit" name="cancel" value="Выйти">
             </small>
     </table>
 </form>

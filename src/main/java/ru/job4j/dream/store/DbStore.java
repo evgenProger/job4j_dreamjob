@@ -266,12 +266,13 @@ public class DbStore implements Store {
 
     @Override
     public User findByEmail(String email) {
-        User user = new User();
+        User user = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement("SELECT * FROM users where email = ?")) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
+                    user = new User();
                     int id = rs.getInt("id");
                     String mail = rs.getString("email");
                     String password = rs.getString("password");
