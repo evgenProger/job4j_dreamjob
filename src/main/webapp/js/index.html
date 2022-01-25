@@ -9,9 +9,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
         function validate() {
-            const name = ($('#Name').val());
-            if (name === "") {
-                alert($('#name').attr('Заполните поле'));
+            if (($('#Name').val()) === "") {
+                alert($('#Name').attr('title'));
+            }
+            if (($('#Last_Name').val()) === "") {
+                alert($('#Last_Name').attr('title'));
+            }
+            if (($('#Gender').val()) === "") {
+                alert($('#Gender').attr('title'));
+            }
+            if (($('#Description').val()) === "") {
+                alert($('#Description').attr('title'));
             }
         }
     </script>
@@ -35,21 +43,24 @@
     </div>
     <div class="form-group">
         <label for="Name">Name</label>
-        <input type="Name" class="form-control" id="Name">
+        <input type="Name" class="form-control" id="Name" title="Заполните поле">
     </div>
     <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="form-group">
         <label for="Last_Name">Last Name</label>
-        <input type="LastName" class="form-control" id="Last_Name">
+        <input type="LastName" class="form-control" id="Last_Name" title="Заполните поле">
     </div>
+    <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="form-group">
         <label for="Gender">Gender</label>
-        <input type="Gender" class="form-control" id="Gender">
+        <input type="Gender" class="form-control" id="Gender" title="Заполните поле">
     </div>
+    <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="form-group">
         <label for="Description">Description</label>
-        <input type="Description" class="form-control" id="Description">
+        <input type="Description" class="form-control" id="Description" title="Заполните поле">
     </div>
+    <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
         <label class="form-check-label" for="exampleCheck1">Check me out</label>    </div>
