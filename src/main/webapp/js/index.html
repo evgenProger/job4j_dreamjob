@@ -22,7 +22,24 @@
                 alert($('#Description').attr('title'));
             }
         }
+
+        function addRow() {
+            const selector = $('#table tr:last');
+            //получаем значение поля usr
+            const name = $('#Name').val();
+            const lastName = $('#Last_Name').val();
+            const gender = $('#Gender').val();
+            const desc = $('#Description').val();
+            //получаем ссылку на последний элемент в таблице.
+            //и после него добавляем html
+            selector.after('<tr><td>' + name + '</td>' +
+                ' + <td>' + lastName + '</td>' +
+                '+ <td>' + gender + '</td>' +
+                '+ <td>' + desc + '</td>  </tr>');
+
+        }
     </script>
+
 </head>
 <body>
 
@@ -43,33 +60,34 @@
     </div>
     <div class="form-group">
         <label for="Name">Name</label>
-        <input type="Name" class="form-control" id="Name" title="Заполните поле">
+        <input type="Name" class="form-control" id="Name" title="Заполните поле Name">
     </div>
     <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="form-group">
         <label for="Last_Name">Last Name</label>
-        <input type="LastName" class="form-control" id="Last_Name" title="Заполните поле">
+        <input type="LastName" class="form-control" id="Last_Name" title="Заполните поле LastName">
     </div>
     <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="form-group">
         <label for="Gender">Gender</label>
-        <input type="Gender" class="form-control" id="Gender" title="Заполните поле">
+        <input type="Gender" class="form-control" id="Gender" title="Заполните поле Gender">
     </div>
     <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
+    <button type="button" class="btn btn-default" onclick="addRow()">Add row</button>
     <div class="form-group">
         <label for="Description">Description</label>
-        <input type="Description" class="form-control" id="Description" title="Заполните поле">
+        <input type="Description" class="form-control" id="Description" title="Заполните поле Description">
     </div>
     <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1">Check me out</label>    </div>
+        <label class="form-check-label" for="exampleCheck1">Check me out</label></div>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-default" onclick="addRow()">Add row</button>
 </form>
-<table class="table">
+<table class="table" id="table">
     <thead>
     <tr>
-        <th scope="col">#</th>
         <th scope="col">Имя</th>
         <th scope="col">Фамилия</th>
         <th scope="col">Пол</th>
