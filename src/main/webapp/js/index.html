@@ -7,6 +7,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            const name = ($('#Name').val());
+            if (name === "") {
+                alert($('#name').attr('Заполните поле'));
+            }
+        }
+    </script>
 </head>
 <body>
 
@@ -17,29 +25,30 @@
 
 <form>
     <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+        <label for="Email">Email address</label>
+        <input type="email" class="form-control" id="Email" aria-describedby="emailHelp">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="Password">
     </div>
     <div class="form-group">
-        <label for="exampleInputName">Name</label>
-        <input type="Name" class="form-control" id="exampleInputName">
+        <label for="Name">Name</label>
+        <input type="Name" class="form-control" id="Name">
+    </div>
+    <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
+    <div class="form-group">
+        <label for="Last_Name">Last Name</label>
+        <input type="LastName" class="form-control" id="Last_Name">
     </div>
     <div class="form-group">
-        <label for="exampleInputLast_Name">Last Name</label>
-        <input type="LastName" class="form-control" id="exampleInputLast_Name">
+        <label for="Gender">Gender</label>
+        <input type="Gender" class="form-control" id="Gender">
     </div>
     <div class="form-group">
-        <label for="exampleInputGender">Gender</label>
-        <input type="Gender" class="form-control" id="exampleInputGender">
-    </div>
-    <div class="form-group">
-        <label for="exampleInputDescription">Description</label>
-        <input type="Description" class="form-control" id="exampleInputDescription">
+        <label for="Description">Description</label>
+        <input type="Description" class="form-control" id="Description">
     </div>
     <div class="form-group form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1">
