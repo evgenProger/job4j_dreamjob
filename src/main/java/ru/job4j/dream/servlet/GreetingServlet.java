@@ -14,7 +14,6 @@ public class GreetingServlet extends HttpServlet {
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("UTF-8");
         String name = req.getParameter("name");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         writer.println("Nice to meet you, " + name);
         writer.flush();
