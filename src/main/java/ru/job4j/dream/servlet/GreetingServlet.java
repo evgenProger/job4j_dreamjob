@@ -18,5 +18,4 @@ public class GreetingServlet extends HttpServlet {
         writer.println("Nice to meet you, " + name);
         writer.flush();
     }
-
 }
