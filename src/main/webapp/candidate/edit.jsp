@@ -24,6 +24,23 @@
 
     <title>Работа мечты</title>
 </head>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/job4j_dreamjob/city',
+            dataType: 'json'
+        }).done(function (data) {
+            for (const email of data) {
+                $('#emailList li:last').append(`<li>${city.name}</li>`)
+            }
+        }).fail(function (err) {
+            console.log(err);
+        });
+    });
+</script>
+
 <body>
 <c:if test="${user != null}">  <li class="nav-item">
     <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">  <c:out value="${user.name}"/> | Выйти</a>
@@ -55,8 +72,18 @@
                         <label>Имя</label>
                         <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
                     </div>
+                    <br>
+                    Почты:
+                    <ul id="emailList">
+                        <li></li>
+                    </ul>
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
+                <div>город</div>
+                <div style="display: none" id="loading_city"><img alt="" src="/img/ajax_loader.gif" />Загрузка...</div>
+                <div>
+                    <select name="city_id" id="city" style="width:300px;">
+                        <option value="4313">Абрамцево</option>
                 <a class="nav-link" href="<%=request.getContextPath()%>/upload?id=<%=candidate.getId()%>">Добавить фото</a>
 
             </div>

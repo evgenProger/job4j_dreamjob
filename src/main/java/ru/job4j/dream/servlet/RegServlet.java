@@ -25,7 +25,7 @@ public class RegServlet extends HttpServlet {
         user.setName(name);
         user.setPassword(password);
         user.setEmail(email);
-        if (!user.getEmail().equals(DbStore.instOf().findByEmail(email).getEmail())) {
+        if (DbStore.instOf().findByEmail(email) == null) {
             DbStore.instOf().saveUser(user);
         } else {
             req.setAttribute("error", "Такой пользователь уже зарегестрирован");
