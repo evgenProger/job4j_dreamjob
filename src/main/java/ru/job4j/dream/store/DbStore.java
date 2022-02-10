@@ -84,7 +84,7 @@ public class DbStore implements Store {
         ) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
-                    candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("city_id")));
                 }
             }
         } catch (SQLException throwables) {
@@ -119,7 +119,7 @@ public class DbStore implements Store {
 
     private Post createPost(Post post) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("INSERT INTO post(name) VALUES (?)",
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO post(name, created) VALUES (?, now())",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, post.getName());
@@ -137,10 +137,11 @@ public class DbStore implements Store {
 
     private Candidate createCandidate(Candidate candidate) {
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name) VALUES (?)",
+             PreparedStatement ps = cn.prepareStatement("INSERT INTO candidate(name, city_id, created ) VALUES (?, ?, now())",
                      PreparedStatement.RETURN_GENERATED_KEYS)
         ) {
             ps.setString(1, candidate.getName());
+            ps.setInt(2, candidate.getCityId());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -156,7 +157,7 @@ public class DbStore implements Store {
     private boolean updatePost(Post post) {
         boolean result = false;
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("UPDATE post set name = ? where id = ? ")) {
+             PreparedStatement ps = cn.prepareStatement("UPDATE post set name = ?, created = now() where id = ? ")) {
             ps.setString(1, post.getName());
             ps.setInt(2, post.getId());
             result = ps.executeUpdate() > 0;
@@ -169,16 +170,16 @@ public class DbStore implements Store {
     private boolean updateCandidate(Candidate candidate) {
         boolean result = false;
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("UPDATE candidate set name = ? where id = ? ")) {
+             PreparedStatement ps = cn.prepareStatement("UPDATE candidate set name = ?, city_id = ?, created = now()  where id = ? ")) {
             ps.setString(1, candidate.getName());
-            ps.setInt(2, candidate.getId());
+            ps.setInt(2, candidate.getCityId());
+            ps.setInt(3, candidate.getId());
             result = ps.executeUpdate() > 0;
         } catch (SQLException throwables) {
             LOG.error("Error", throwables);
         }
         return result;
     }
-
 
     @Override
     public Post findById(int id) {
@@ -205,8 +206,7 @@ public class DbStore implements Store {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    int num = rs.getInt("id");
-                    candidate = new Candidate(rs.getInt("id"), rs.getString("name"));
+                    candidate = new Candidate(rs.getInt("id"), rs.getString("name"), rs.getInt("city_id"));
                 }
 
             }
@@ -317,5 +317,39 @@ public class DbStore implements Store {
             LOG.error("Error", throwables);
         }
         return cities;
+    }
+
+    @Override
+    public Collection<Candidate> findCandidatesAt24Hours() {
+        List<Candidate> candidates = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM candidate where created between now() - INTERVAL '24 hours' and now()")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    candidates.add(new Candidate(it.getInt("id"), it.getString("name"), it.getInt("city_id")));
+                }
+            }
+        } catch (SQLException throwables) {
+            LOG.error("Error", throwables);
+        }
+        return candidates;
+    }
+
+    @Override
+    public Collection<Post> findPostsAt24Hours() {
+        List<Post> posts = new ArrayList<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM post where created between now() - INTERVAL '24 hours' and now()")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    posts.add(new Post(it.getInt("id"), it.getString("name")));
+                }
+            }
+        } catch (SQLException throwables) {
+            LOG.error("Error", throwables);
+        }
+        return posts;
     }
 }

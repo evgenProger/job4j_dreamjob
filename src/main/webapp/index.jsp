@@ -53,6 +53,22 @@
                 Сегодняшние вакансии.
             </div>
             <div class="card-body">
+                <table class="table" id="post">
+                    <thead>
+                    <tr>
+                        <th scope="col">Имя</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${postsLast}" var="post">
+                        <tr>
+                            <td>
+                                <c:out value="${post.name}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -62,6 +78,22 @@
                 Сегодняшние кандидаты.
             </div>
             <div class="card-body">
+                <table class="table" id="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">Имя</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${candidatesAtLast}" var="candidate">
+                        <tr>
+                            <td>
+                                <c:out value="${candidate.name}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

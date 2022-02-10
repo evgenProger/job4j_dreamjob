@@ -26,7 +26,7 @@
   </li>
 </c:if>
  <form>
-   <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/"'>
+   <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/index.do"'>
  </form>
 <div class="container pt-3">
   <div class="row">

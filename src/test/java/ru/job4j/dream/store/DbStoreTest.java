@@ -83,7 +83,7 @@ public class DbStoreTest {
 
     @Test
     public void whenSaveCandidateAndFindByGeneratedIdThenMustBeTheSame() {
-        Candidate candidate = new Candidate(0, "Senior java");
+        Candidate candidate = new Candidate(0, "Senior java", 1);
         DbStore.instOf().saveCandidate(candidate);
         assertThat(DbStore.instOf().findCandidateById(candidate.getId()), is(candidate));
     }
@@ -91,9 +91,9 @@ public class DbStoreTest {
 
     @Test
     public void whenUpdateCandidateThenNewCandidate() {
-        Candidate candidate = new Candidate(0, "Middle Java");
+        Candidate candidate = new Candidate(0, "Middle Java", 1);
         int id = DbStore.instOf().saveCandidate(candidate);
-        Candidate newCandidate = new Candidate(id, "updated");
+        Candidate newCandidate = new Candidate(id, "updated", 1);
         DbStore.instOf().saveCandidate(newCandidate);
         assertThat(DbStore.instOf().findCandidateById(id).getName(), is("updated"));
     }
@@ -124,5 +124,4 @@ public class DbStoreTest {
         DbStore.instOf().saveUser(newUser);
         assertThat(DbStore.instOf().findByEmail(newUser.getEmail()).getEmail(), is("emailUpdated"));
     }
-
 }

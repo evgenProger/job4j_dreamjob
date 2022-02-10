@@ -1,5 +1,6 @@
 package ru.job4j.dream.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Candidate {
@@ -7,10 +8,12 @@ public class Candidate {
     private int id;
     private String name;
     private int cityId;
+    private LocalDateTime created;
 
-    public Candidate(int id, String name) {
+    public Candidate(int id, String name, int cityId) {
         this.id = id;
         this.name = name;
+        this.cityId = cityId;
     }
 
     public int getId() {
@@ -29,6 +32,8 @@ public class Candidate {
         this.name = name;
     }
 
+
+
     @SuppressWarnings("checkstyle:OperatorWrap")
     @Override
     public boolean equals(Object o) {
@@ -45,5 +50,17 @@ public class Candidate {
     @Override
     public int hashCode() {
         return Objects.hash(id, name);
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
     }
 }

@@ -19,12 +19,24 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-            crossorigin="anonymous"></script>
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script>
+        function validate() {
+            if (($('#Name').val()) === "") {
+                alert($('#Name').attr('title'));
+                return false;
+            }
+            if (($('#city').val()) === "") {
+                alert($('#city').attr('title'));
+                return false;
+            }
+
+        }
+    </script>
     <title>Работа мечты</title>
 </head>
-
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
 <script>
     $(document).ready(function () {
         $.ajax({
@@ -32,26 +44,25 @@
             url: 'http://localhost:8080/job4j_dreamjob/city',
             dataType: 'json'
         }).done(function (data) {
-            for (const email of data) {
-                $('#emailList li:last').append(`<li>${city.name}</li>`)
+            for (const city of data) {
+                $('#city option:last').after(`<option value="${city.id}"> ${city.name}</option>`)
             }
         }).fail(function (err) {
             console.log(err);
         });
     });
 </script>
-
 <body>
 <c:if test="${user != null}">  <li class="nav-item">
     <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">  <c:out value="${user.name}"/> | Выйти</a>
 </li>
 </c:if>
 <form>
-    <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/"'>
+    <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/index.do"'>
 </form>
 <%
     String id = request.getParameter("id");
-    Candidate candidate = new Candidate(0, "");
+    Candidate candidate = new Candidate(0, "", 1);
     if (id != null) {
         candidate = DbStore.instOf().findCandidateById(Integer.valueOf(id));
     }
@@ -70,25 +81,20 @@
                 <form action="<%=request.getContextPath()%>/candidates.do?id=<%=candidate.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>">
+                        <input type="text" class="form-control" name="name" value="<%=candidate.getName()%>"  id="Name" title="Заполните поле Имя">
                     </div>
                     <br>
-                    Почты:
-                    <ul id="emailList">
-                        <li></li>
-                    </ul>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <label>Город:</label>
+                    <select name="city_id"  id="city" title="Заполните поле Город">
+                        <option></option>
+                    </select>
+                    <button type="submit" class="btn btn-primary" onclick="return validate();" >Сохранить</button>
                 </form>
-                <div>город</div>
-                <div style="display: none" id="loading_city"><img alt="" src="/img/ajax_loader.gif" />Загрузка...</div>
-                <div>
-                    <select name="city_id" id="city" style="width:300px;">
-                        <option value="4313">Абрамцево</option>
                 <a class="nav-link" href="<%=request.getContextPath()%>/upload?id=<%=candidate.getId()%>">Добавить фото</a>
-
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

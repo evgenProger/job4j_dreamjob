@@ -1,7 +1,8 @@
 CREATE TABLE IF NOT EXISTS post
 (
     id   SERIAL PRIMARY KEY,
-    name TEXT
+    name TEXT,
+    created timestamp
 );
 
 CREATE TABLE IF NOT EXISTS city
@@ -15,7 +16,8 @@ CREATE TABLE IF NOT EXISTS candidate
 (
     id   SERIAL PRIMARY KEY,
     name TEXT,
-    city_id int references city(id)
+    city_id int references city(id),
+    created timestamp
 );
 
 CREATE TABLE IF NOT EXISTS users

@@ -21,6 +21,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script>
+        function validate() {
+            if (($('#Name').val()) === "") {
+                alert($('#Name').attr('title'));
+                return false;
+            }
+        }
+    </script>
 
     <title>Работа мечты</title>
 </head>
@@ -30,7 +40,7 @@
 </li>
 </c:if>
 <form>
-    <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/"'>
+    <input type="button" value="На главную" onClick='location.href="http://localhost:8080/job4j_dreamjob/index.do"'>
 </form>
 
 <%
@@ -54,9 +64,9 @@
                 <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=post.getName()%>">
+                        <input type="text" class="form-control" name="name" value="<%=post.getName()%>" id="Name" title="Заполните поле Имя">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate();">Сохранить</button>
                 </form>
             </div>
         </div>

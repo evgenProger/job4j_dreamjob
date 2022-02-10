@@ -29,6 +29,10 @@ public interface Store {
 
     Collection<City> findAllCities();
 
+   Collection<Candidate> findCandidatesAt24Hours();
+
+   Collection<Post> findPostsAt24Hours();
+
 
 
 

@@ -17,6 +17,19 @@
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            if (($('#Email').val()) === "") {
+                alert($('#Email').attr('title'));
+                return false;
+            }
+            if (($('#Password').val()) === "") {
+                alert($('#Password').attr('title'));
+                return false;
+            }
+        }
+    </script>
 
     <title>Работа мечты</title>
 </head>
@@ -31,13 +44,13 @@
                 <form action="<%=request.getContextPath()%>/auth.do" method="post">
                     <div class="form-group">
                         <label>Почта</label>
-                        <input type="text" class="form-control" name="email">
+                        <input type="text" class="form-control" name="email" id="Email" title="Заполните поле Email">
                     </div>
                     <div class="form-group">
                         <label>Пароль</label>
-                        <input type="text" class="form-control" name="password">
+                        <input type="text" class="form-control" name="password" id="Password" title="Заполните поле Password">
                     </div>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <button type="submit" class="btn btn-primary" onclick="return validate();">Войти</button>
                 </form>
                 <c:if test="${not empty error}">
                     <div style="color:red; font-weight: bold; margin: 30px 0;">
@@ -45,7 +58,7 @@
                     </div>
                 </c:if>
                 <form action="<%=request.getContextPath()%>/reg.do" method="get">
-                    <input type="submit" class="form-control" name="registration" value="Зарегистрироваться">
+                    <br> <button type="submit" class="btn btn-primary" >Зарегистрироваться</button>
                 </form>
             </div>
         </div>

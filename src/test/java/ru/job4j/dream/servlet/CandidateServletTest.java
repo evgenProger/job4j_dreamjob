@@ -23,6 +23,7 @@ public class CandidateServletTest {
         HttpServletRequest req = mock(HttpServletRequest.class);
         HttpServletResponse resp = mock(HttpServletResponse.class);
         when(req.getParameter("id")).thenReturn("0");
+        when(req.getParameter("city_id")).thenReturn("1");
         when(req.getParameter("name")).thenReturn("name of new candidate");
         new CandidateServlet().doPost(req, resp);
         List<Candidate> candidates = (List<Candidate>) DbStore.instOf().findAllCandidates();
