@@ -32,9 +32,6 @@ public class Candidate {
         this.name = name;
     }
 
-
-
-    @SuppressWarnings("checkstyle:OperatorWrap")
     @Override
     public boolean equals(Object o) {
         if (this == o) {
